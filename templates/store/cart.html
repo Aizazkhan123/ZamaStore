@@ -1,0 +1,201 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block banner %}{% endblock banner %}
+
+
+{% block content %}
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+
+<main class="main">
+
+
+<div class="page-content">
+{% if not cart_items %}
+<h3 class="text-center">Your Shopping Cart is Empty</h3>
+<br>
+<div class="text-center">
+<a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% else %}
+<div class="cart" style="left-merge">   
+<div class="container">
+
+<div class="row">
+<div class="col-lg-9">
+<table class="table table-cart table-mobile">
+<thead>
+<tr>
+<th>Product</th>
+<th>Quantity</th>
+<th>Price</th>
+
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+{% for cart_iteam in cart_items %}
+<tr>
+    <!-- Product Column -->
+    <td>
+        <figure class="itemside align-items-center">
+            <div class="aside">
+                <img src="{{  cart_iteam.product.images.url  }}" class="img-sm">
+            </div>
+            <figcaption class="info">
+                <a href="{{  cart_iteam.product.images.get_url }}" class="title text-dark">{{cart_iteam.product.product_name }}</a>
+                <p class="text-muted small">
+                    {% if cart_iteam.variations.all %}
+						{% for item in cart_iteam.variations.all %}
+							{{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+						{% endfor %}
+					{% endif %}
+                </p>
+            </figcaption>
+        </figure>
+    </td>
+
+    <!-- Quantity Column -->
+  <td class="quantity-col">
+    <div  style="display: flex; align-items: center; justify-content: center;  margin-left: -40px; ">
+        <!-- Decrement Button -->
+        <a href="{% url 'remove_cart' cart_iteam.product.id %}"
+           style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+                  border: 1px solid #ddd; background-color: #fff; color: #333; text-decoration: none;
+                  border-radius: 2px 0 0 2px; font-size: 15px;">
+            <i class="fa fa-minus"></i>
+        </a>
+
+        <!-- Quantity Input -->
+        <input type="text"  value="{{ cart_iteam.quantity }}" readonly
+               style="width: 70px; height: 30px; text-align: center; border: 1px solid #ddd;
+                      border-left: none; border-right: none; font-size: 14px; background: #fff;">
+
+        <!-- Increment Button -->
+        <a href="{% url 'add_cart' cart_iteam.product.id %}"
+           style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+                  border: 1px solid #ddd; background-color: #fff; color: #333; text-decoration: none;
+                  border-radius: 0 2px 2px 0; font-size: 15px;">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</td>
+
+
+    <!-- Price Column -->
+    <td>
+        <div class="price-wrap">
+            <var class="price" style= "font-size: 15px;">{{ cart_iteam.sub_total }}</var><br>
+            <small class="text-muted">{{ cart_iteam.product.price  }}</small>
+        </div>
+    </td>
+
+
+    <!-- Remove Column -->
+    <td class="remove-col">
+        <a href="{% url 'remove_cart_item' cart_iteam.product.id %}" class="btn-remove"><i class="icon-close"></i></a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table><!-- End .table table-wishlist -->
+
+<div class="cart-bottom">
+<div class="cart-discount">
+<form action="#">
+    <div class="input-group">
+        <input type="text" class="form-control" required placeholder="coupon code">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
+        </div><!-- .End .input-group-append -->
+    </div><!-- End .input-group -->
+</form>
+</div><!-- End .cart-discount -->
+
+<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
+</div><!-- End .cart-bottom -->
+</div><!-- End .col-lg-9 -->
+<aside class="col-lg-3">
+<div class="summary summary-cart">
+<h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+<table class="table table-summary">
+<tbody>
+    <tr class="summary-subtotal">
+        <td>Subtotal:</td>
+        <td>{{ total }}</td>
+    </tr><!-- End .summary-subtotal -->
+    <tr class="summary-shipping">
+        <td>Shipping:</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr class="summary-shipping-row">
+        <td>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+                <label class="custom-control-label" for="free-shipping">Free Shipping</label>
+            </div><!-- End .custom-control -->
+        </td>
+        <td>$0.00</td>
+    </tr><!-- End .summary-shipping-row -->
+
+    <tr class="summary-shipping-row">
+        <td>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+                <label class="custom-control-label" for="standart-shipping">Standart:</label>
+            </div><!-- End .custom-control -->
+        </td>
+        <td>Rs.200</td>
+    </tr><!-- End .summary-shipping-row -->
+
+    <tr class="summary-shipping-row">
+        <td>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
+                <label class="custom-control-label" for="express-shipping">Express:</label>
+            </div><!-- End .custom-control -->
+        </td>
+        <td>{{ shipping_cost }}</td>
+    </tr><!-- End .summary-shipping-row -->
+
+    <tr class="summary-shipping-estimate">
+        <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
+        <td>&nbsp;</td>
+    </tr><!-- End .summary-shipping-estimate -->
+
+    <tr class="summary-total">
+        <td>Total:</td>
+        <td>{{grand_total}}</td>
+    </tr><!-- End .summary-total -->
+</tbody>
+</table><!-- End .table table-summary -->
+
+<a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+</div><!-- End .summary -->
+
+<a href="{% url 'store' %}" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+</aside><!-- End .col-lg-3 -->
+</div><!-- End .row -->
+</div><!-- End .container -->
+</div><!-- End .cart -->
+</div><!-- End .page-content -->
+{% endif %}
+</main><!-- End .main -->
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
