@@ -1,0 +1,121 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block banner %}{% endblock banner %}
+
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+    
+<div class="container">
+	<div class="row">
+        <aside class="col-md-4 col-lg-3">
+            <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Downloads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sign Out</a>
+                </li>
+            </ul>
+        </aside><!-- End .col-lg-3 -->
+
+	
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
+			<span>Order Date: 16 December 2018</span>
+		</header>
+		<div class="card-body">
+			<div class="row"> 
+				<div class="col-md-8">
+					<h6 class="text-muted">Delivery to</h6>
+					<p>Michael Jackson <br>  
+					Phone +1234567890 Email: myname@pixsellz.com <br>
+			    	Location: Home number, Building name, Street 123,  Tashkent, UZB <br> 
+			    	P.O. Box: 100123
+			 		</p>
+				</div>
+				<div class="col-md-4">
+					<h6 class="text-muted">Payment</h6>
+					<span class="text-success">
+						<i class="fab fa-lg fa-cc-visa"></i>
+					    Visa  **** 4216  
+					</span>
+					<p>Subtotal: $356 <br>
+					 Shipping fee:  $56 <br> 
+					 <span class="b">Total:  $456 </span>
+					</p>
+				</div>
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+		<div class="table-responsive">
+		<table class="table table-hover">
+			<tr>
+				<td width="65">
+					<img src="../images/items/1.jpg" class="img-xs border">
+				</td>
+				<td> 
+					<p class="title mb-0">Product name goes here </p>
+					<var class="price text-muted">USD 145</var>
+				</td>
+				<td> Seller <br> Nike clothing </td>
+				<td width="250"> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#" class="btn btn-light"> Details </a> </td>
+			</tr>
+			<tr>
+				<td>
+					<img src="../images/items/2.jpg" class="img-xs border">
+				</td>
+				<td> 
+					<p class="title mb-0">Another name goes here </p>
+					<var class="price text-muted">USD 15</var>
+				</td>
+				<td> Seller <br> ABC shop </td>
+				<td> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#" class="btn btn-light"> Details </a> </td>
+			</tr>
+			<tr>
+				<td>
+					<img src="../images/items/3.jpg" class="img-xs border">
+				</td>
+				<td> 
+					<p class="title mb-0">The name of the product  goes here </p>
+					<var class="price text-muted">USD 145</var>
+				</td>
+				<td> Seller <br> Wallmart </td>
+				<td> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#" class="btn btn-light"> Details </a> </td>
+			</tr>
+		</table>
+		</div> <!-- table-responsive .end// -->
+		</article> <!-- order-group.// --> 
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -239,9 +239,9 @@
 
                     {% if products %}
                     {% for product in products %}
-
-            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                <div class="product product-7 text-center">
+    
+                   <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                   <div class="product product-7 text-center">
 
                     <figure class="product-media">
                         <a href="{{ product.get_url }}">
@@ -274,7 +274,7 @@
             {% endfor %}
          {% else %}
          <div>
-            <h2>No result found. Please try again.</h2>
+            <h2>No similer result.</h2>
           </div>
          {% endif %}
 

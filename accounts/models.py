@@ -22,6 +22,7 @@ class MyAccountManager(BaseUserManager):
             username = username,
             first_name = first_name,
             last_name = last_name,
+        
         )
 
         user.set_password(password)
@@ -51,7 +52,7 @@ class Account(AbstractBaseUser):
     username        = models.CharField(max_length=50, unique=True)
     email           = models.EmailField(max_length=100, unique=True)
     phone_number    = models.CharField(max_length=50)
-
+    
     # required
     date_joined     = models.DateTimeField(auto_now_add=True)
     last_login      = models.DateTimeField(auto_now_add=True)
@@ -76,3 +77,4 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
+    

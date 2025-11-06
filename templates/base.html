@@ -107,6 +107,7 @@
 <script src ="{% static 'assets/js/wNumb.js'%}"></script>
 <script src="{% static 'assets/js/bootstrap-input-spinner.js' %}"></script>
 <script src="{% static 'assets/js/nouislider.min.js' %}"></script>
+<script src="{% static 'assets/script.js' %}"></script>
 
 
 
@@ -115,5 +116,11 @@ $(document).ready(function() {
 	// jQuery code
 
 }); 
+
+
+setTimeout(function(){
+  $('#message').fadeOut('slow')
+}, 4000)
 // jquery end
 </script>
+
