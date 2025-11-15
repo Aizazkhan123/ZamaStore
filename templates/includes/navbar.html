@@ -141,6 +141,7 @@
 
 
 <div class="dropdown-menu dropdown-menu-right">
+    
 {% if not cart_items %}
 <h6 class="text-center">Your Shopping Cart is Empty</h6>
 <br>
@@ -167,7 +168,7 @@ x $84.00
 <img src="{{  cart_iteam.product.images.url  }}" alt="product">
 </a>
 </figure>
-<a href="{% url 'remove_cart_item' cart_iteam.product.id %}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+<a href="{% url 'remove_cart_item' cart_iteam.product.id cart_iteam.id %}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
 </div><!-- End .product -->
 {% endfor %}
 

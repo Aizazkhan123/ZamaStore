@@ -17,13 +17,12 @@ class Product(models.Model):
     modified_date   = models.DateTimeField(auto_now=True)
 
 
-    
     def get_url(self):
-    
         return reverse('product_detail', args=[self.category.slug, self.slug])
 
     def __str__(self):
         return self.product_name
+
 
 
 class VariationManager(models.Manager):
@@ -32,7 +31,6 @@ class VariationManager(models.Manager):
 
     def sizes(self):
         return super(VariationManager, self).filter(variation_category='size', is_active=True)
-
 
 
 
@@ -50,6 +48,7 @@ class Variation(models.Model):
     created_date = models.DateTimeField(auto_now=True)
 
     objects = VariationManager()
+
     def __str__(self):
         return self.variation_value
 

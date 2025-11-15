@@ -61,26 +61,35 @@
     <!-- Quantity Column -->
   <td class="quantity-col">
     <div  style="display: flex; align-items: center; justify-content: center;  margin-left: -40px; ">
-        <!-- Decrement Button -->
-        <a href="{% url 'remove_cart' cart_iteam.product.id %}"
+         <!-- Decrement Button -->
+        <a href="{% url 'remove_cart' cart_iteam.product.id cart_iteam.id  %}"
            style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
                   border: 1px solid #ddd; background-color: #fff; color: #333; text-decoration: none;
                   border-radius: 2px 0 0 2px; font-size: 15px;">
             <i class="fa fa-minus"></i>
-        </a>
+    </a>
 
-        <!-- Quantity Input -->
+      
         <input type="text"  value="{{ cart_iteam.quantity }}" readonly
                style="width: 70px; height: 30px; text-align: center; border: 1px solid #ddd;
                       border-left: none; border-right: none; font-size: 14px; background: #fff;">
+            
 
-        <!-- Increment Button -->
-        <a href="{% url 'add_cart' cart_iteam.product.id %}"
-           style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
-                  border: 1px solid #ddd; background-color: #fff; color: #333; text-decoration: none;
-                  border-radius: 0 2px 2px 0; font-size: 15px;">
-            <i class="fa fa-plus"></i>
-        </a>
+         <!-- Increment Button (Form for +) -->
+    <div style="display: flex; align-items: center;">
+      <form action="{% url 'add_cart' cart_iteam.product.id %}" method="POST" style="margin: 0;">
+        {% csrf_token %}
+        {% for item in cart_iteam.variations.all %}
+          <input type="hidden" name="{{ item.variation_category|lower }}" value="{{ item.variation_value|capfirst }}">
+        {% endfor %}
+        <button type="submit"
+                style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+                       border: 1px solid #ddd; background-color: #fff; color: #333; border-radius: 0 2px 2px 0;
+                       font-size: 15px; cursor: pointer;">
+          <i class="fa fa-plus"></i>
+        </button>
+      </form>
+    </div>
     </div>
 </td>
 
@@ -96,7 +105,7 @@
 
     <!-- Remove Column -->
     <td class="remove-col">
-        <a href="{% url 'remove_cart_item' cart_iteam.product.id %}" class="btn-remove"><i class="icon-close"></i></a>
+        <a href="{% url 'remove_cart_item' cart_iteam.product.id cart_iteam.id %}" class="btn-remove"><i class="icon-close"></i></a>
     </td>
 </tr>
 {% endfor %}
@@ -176,7 +185,7 @@
 </tbody>
 </table><!-- End .table table-summary -->
 
-<a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+<a href="{% url 'checkout' %}"  class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
 </div><!-- End .summary -->
 
 <a href="{% url 'store' %}" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
