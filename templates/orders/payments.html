@@ -1,0 +1,192 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block banner %}{% endblock banner %}
+
+
+{% block content %}
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+
+<main class="main">
+
+
+<div class="page-content">
+{% if not cart_items %}
+<h3 class="text-center">Your Shopping Cart is Empty</h3>
+
+<br>
+<div class="text-center">
+<a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+
+</div>
+{% else %}
+
+<div class="cart" style="left-merge">   
+<h4 class="text-center mb-20">Review Your Order and Make Payment</h4>
+<div class="container">
+
+<div class="row">
+<div class="col-lg-8">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Billing Address</h5>
+    <p class="card-text mb 0">{{order.full_name}}</p>
+    <p class="card-text mb 0">{{order.full_address}}</p>
+    <p class="card-text mb 0">{{order.city}}</p>
+    <p class="card-text mb 0">{{order.country}}</p>
+    <p class="card-text mb-0">{{order.email}}</p>
+    <p class="card-text mb-0">{{order.phone}}</p>
+    <p class="card-text mb-0">{{order.order_number}}</p>
+    {% if order.order_note %}
+    <b>Order Note: </b> {{order.order_note}}
+    {% endif %}
+
+    
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title" >Payment Method</h5>
+    <p class="card-text">Cash On Delivery</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Review Products</h5>
+    
+    
+  </div>
+  <table  class="table table-borderless table table-summary">
+                                <thead class="text-muted">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+{% for cart_iteam in cart_items %}
+<tr>
+    <!-- Product Column -->
+    <td>
+        <figure class="itemside align-items-center" >
+            <div class="aside" >
+                <img src="{{  cart_iteam.product.images.url  }}" class="img-sm"style="margin-left: -10px;" >
+            </div>
+            <figcaption class="info">
+                <a href="{{  cart_iteam.product.images.get_url }}" class="title text-dark">{{cart_iteam.product.product_name }}</a>
+                <p class="text-muted small">
+                    {% if cart_iteam.variations.all %}
+						{% for item in cart_iteam.variations.all %}
+							{{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+						{% endfor %}
+					{% endif %}
+                </p>
+            </figcaption>
+        </figure>
+    </td>
+    <!-- Price Column -->
+    <td>
+        <div class="quantity-col" style="margin-left: 20px;">
+            <var class="quantity">{{ cart_iteam.quantity }}</var>
+         
+        </div>
+    </td>
+
+
+    <!-- Price Column -->
+    <td>
+        <div class="price-wrap">
+            <var class="price" >{{ cart_iteam.sub_total }}</var><br>
+            <small class="text-muted"> $ {{ cart_iteam.product.price }} each </small>
+         
+        </div>
+    </td>
+
+
+
+</tr>
+{% endfor %}
+</tbody>
+
+</table><!-- End .table table-wishlist -->
+</div>
+
+
+
+
+</div><!-- End .col-lg-9 -->
+<aside class="col-lg-4">
+<div class="summary summary-cart">
+<h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+<table class="table table-summary">
+<tbody>
+    <tr class="summary-subtotal">
+        <td>Total Price:</td>
+        <td>{{ total }}</td>
+    </tr><!-- End .summary-subtotal -->
+    <tr class="summary-shipping">
+        <td>Shipping:</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr class="summary-shipping-row">
+        <td>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+                <label class="custom-control-label" for="standart-shipping">Standart:</label>
+            </div><!-- End .custom-control -->
+        </td>
+        <td>Rs.200</td>
+    </tr><!-- End .summary-shipping-row -->
+
+    <tr class="summary-shipping-row">
+        <td>{{ shipping_cost }}</td>
+    </tr><!-- End .summary-shipping-row -->
+
+    <tr class="summary-total">
+        <td>Grand Total:</td>
+        <td>{{grand_total}}</td>
+       
+            
+    </tr><!-- End .summary-total -->
+
+</tbody>
+
+</table><!-- End .table table-summary -->
+<p class="text-center mb-3"><img src="{% static './images/misc/payments.png' %}" height="26"></p>
+<div id="paypal-button-container">
+<!-- PayPal Button Will Load -->
+</div>
+
+
+<a href="{% url 'payments' order.order_number %}" class="btn btn-outline-primary-2 btn-order btn-block">Make Payment</a>
+
+</div><!-- End .summary -->
+
+
+<a href="{% url 'store' %}" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+</aside><!-- End .col-lg-3 -->
+</div><!-- End .row -->
+</div><!-- End .container -->
+</div><!-- End .cart -->
+</div><!-- End .page-content -->
+{% endif %}
+</main><!-- End .main -->
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
